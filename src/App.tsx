@@ -19,8 +19,8 @@ export default function App(): ReactNode {
       <main>
         <Hero />
         <Features />
-        <AiWorkflow />
         <Screenshot />
+        <AiWorkflow />
         <TryCta />
         <Install />
       </main>

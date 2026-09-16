@@ -1,0 +1,37 @@
+{
+ "feature": "theme-toggle",
+ "url": "http://127.0.0.1:5181/",
+ "passed": 3,
+ "total": 3,
+ "ok": true,
+ "checks": [
+  {
+   "id": "toggle-present",
+   "pass": true,
+   "value": "Switch to light theme",
+   "error": null
+  },
+  {
+   "id": "toggle-flips-theme",
+   "pass": true,
+   "value": {
+    "before": "dark",
+    "after": "light",
+    "stored": "light"
+   },
+   "error": null
+  },
+  {
+   "id": "toggle-restores",
+   "pass": true,
+   "value": {
+    "theme": "dark",
+    "stored": "dark",
+    "label": "Switch to light theme",
+    "flipped": "light"
+   },
+   "error": null
+  }
+ ],
+ "finishedAt": "2026-09-16T07:56:16.174Z"
+}
