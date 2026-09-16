@@ -50,12 +50,12 @@ Stop-Process -Id $p.Id -Force
 
 ## Environment variables
 
-| Variable | Default | Purpose |
-| --- | --- | --- |
-| `VERIFY_PORT` | `5173` | App server port (also `--port`) |
-| `VERIFY_CDP_PORT` | `19222` | Chrome remote-debugging port (also `--cdp-port`); change per parallel run |
-| `VERIFY_RUN_ID` | timestamp | Artifact directory name (also `--run-id`) |
-| `CHROME_PATH` | auto-detect | Browser binary (also `--chrome` for `drive.mjs`) |
+| Variable          | Default     | Purpose                                                                   |
+| ----------------- | ----------- | ------------------------------------------------------------------------- |
+| `VERIFY_PORT`     | `5173`      | App server port (also `--port`)                                           |
+| `VERIFY_CDP_PORT` | `19222`     | Chrome remote-debugging port (also `--cdp-port`); change per parallel run |
+| `VERIFY_RUN_ID`   | timestamp   | Artifact directory name (also `--run-id`)                                 |
+| `CHROME_PATH`     | auto-detect | Browser binary (also `--chrome` for `drive.mjs`)                          |
 
 ## Evidence
 

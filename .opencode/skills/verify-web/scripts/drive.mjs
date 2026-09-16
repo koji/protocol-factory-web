@@ -14,7 +14,13 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 
-const FEATURES = ['hero', 'features-grid', 'ai-workflow', 'theme-toggle', 'install-guide']
+const FEATURES = [
+  'hero',
+  'features-grid',
+  'ai-workflow',
+  'theme-toggle',
+  'install-guide',
+]
 
 const EXPECTED_FEATURE_TITLES = [
   'Real-time Deck Visualization',
@@ -56,7 +62,8 @@ function killTree(proc) {
   } catch {}
 }
 
-function findChrome(explicit) {  const candidates = [
+function findChrome(explicit) {
+  const candidates = [
     explicit,
     process.env.CHROME_PATH,
     `${process.env.LOCALAPPDATA}\\ms-playwright\\chromium-1208\\chrome-win64\\chrome.exe`,
@@ -90,7 +97,8 @@ function createCdp(ws) {
     if (msg.id !== undefined && pending.has(msg.id)) {
       const { resolve, reject } = pending.get(msg.id)
       pending.delete(msg.id)
-      if (msg.error) reject(new Error(`CDP error: ${JSON.stringify(msg.error)}`))
+      if (msg.error)
+        reject(new Error(`CDP error: ${JSON.stringify(msg.error)}`))
       else resolve(msg.result)
     } else if (msg.method) {
       const list = waiters.get(msg.method)
@@ -137,7 +145,9 @@ async function evaluate(cdp, expression) {
     awaitPromise: true,
   })
   if (res.exceptionDetails) {
-    throw new Error(`evaluate threw: ${JSON.stringify(res.exceptionDetails).slice(0, 500)}`)
+    throw new Error(
+      `evaluate threw: ${JSON.stringify(res.exceptionDetails).slice(0, 500)}`,
+    )
   }
   return res.result?.value
 }
@@ -145,7 +155,10 @@ async function evaluate(cdp, expression) {
 async function waitForReady(cdp, timeoutMs = 20000) {
   const start = Date.now()
   while (Date.now() - start < timeoutMs) {
-    const h1 = await evaluate(cdp, `document.querySelector('#root h1')?.textContent ?? null`)
+    const h1 = await evaluate(
+      cdp,
+      `document.querySelector('#root h1')?.textContent ?? null`,
+    )
     if (h1) return h1
     await sleep(250)
   }
@@ -168,12 +181,15 @@ const CHECKS = {
     {
       id: 'hero-request-access-links',
       expr: `(() => { const a = [...document.querySelectorAll('#root a')].filter(e => e.textContent.trim() === 'Request access'); return { count: a.length, hrefs: a.map(e => e.href) }; })()`,
-      check: (v) => v.count >= 3 && v.hrefs.every((h) => h.includes('docs.google.com/forms')),
+      check: (v) =>
+        v.count >= 3 &&
+        v.hrefs.every((h) => h.includes('docs.google.com/forms')),
     },
     {
       id: 'hero-install-link',
       expr: `[...document.querySelectorAll('#root a[href="#install"]')].map(a => a.textContent.trim())`,
-      check: (v) => Array.isArray(v) && v.some((t) => t.includes('Installation guide')),
+      check: (v) =>
+        Array.isArray(v) && v.some((t) => t.includes('Installation guide')),
     },
   ],
   'features-grid': [
@@ -237,13 +253,17 @@ const CHECKS = {
     {
       id: 'toggle-present',
       expr: `document.querySelector('button[aria-label^="Switch to"]')?.getAttribute('aria-label') ?? null`,
-      check: (v) => v === 'Switch to light theme' || v === 'Switch to dark theme',
+      check: (v) =>
+        v === 'Switch to light theme' || v === 'Switch to dark theme',
     },
     {
       id: 'toggle-flips-theme',
       expr: `(async () => { const b = document.querySelector('button[aria-label^="Switch to"]'); if (!b) return null; const before = document.documentElement.dataset.theme; b.click(); await new Promise(r => setTimeout(r, 400)); const after = document.documentElement.dataset.theme; const stored = localStorage.getItem('theme'); window.__verifyThemeFlipped = after; return { before, after, stored }; })()`,
       check: (v) =>
-        v !== null && v.before !== v.after && (v.after === 'dark' || v.after === 'light') && v.stored === v.after,
+        v !== null &&
+        v.before !== v.after &&
+        (v.after === 'dark' || v.after === 'light') &&
+        v.stored === v.after,
     },
     {
       id: 'toggle-restores',
@@ -253,7 +273,10 @@ const CHECKS = {
         (v.theme === 'dark' || v.theme === 'light') &&
         v.stored === v.theme &&
         v.theme !== v.flipped &&
-        v.label === (v.theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'),
+        v.label ===
+          (v.theme === 'dark'
+            ? 'Switch to light theme'
+            : 'Switch to dark theme'),
     },
   ],
   'install-guide': [
@@ -300,8 +323,10 @@ function judge(check, value) {
       return false
     }
   }
-  if (check.want !== undefined) return JSON.stringify(value) === JSON.stringify(check.want)
-  if (check.contains !== undefined) return typeof value === 'string' && value.includes(check.contains)
+  if (check.want !== undefined)
+    return JSON.stringify(value) === JSON.stringify(check.want)
+  if (check.contains !== undefined)
+    return typeof value === 'string' && value.includes(check.contains)
   return false
 }
 
@@ -327,7 +352,9 @@ async function driveFeature(cdp, pageUrl, feature, outDir) {
       error = String(e).slice(0, 300)
     }
     results.push({ id: check.id, pass, value, error })
-    console.log(`  [${pass ? 'PASS' : 'FAIL'}] ${check.id}${pass ? '' : ` — saw ${JSON.stringify(value)?.slice(0, 200)}${error ? ` (${error})` : ''}`}`)
+    console.log(
+      `  [${pass ? 'PASS' : 'FAIL'}] ${check.id}${pass ? '' : ` — saw ${JSON.stringify(value)?.slice(0, 200)}${error ? ` (${error})` : ''}`}`,
+    )
   }
 
   const shot = await (async () => {
@@ -341,14 +368,20 @@ async function driveFeature(cdp, pageUrl, feature, outDir) {
     }
     const sel = targets[feature]
     if (sel) {
-      await evaluate(cdp, `document.querySelector(${JSON.stringify(sel)})?.scrollIntoView({ block: 'start' }); window.scrollBy(0, -72)`)
+      await evaluate(
+        cdp,
+        `document.querySelector(${JSON.stringify(sel)})?.scrollIntoView({ block: 'start' }); window.scrollBy(0, -72)`,
+      )
     } else {
       await evaluate(cdp, `window.scrollTo(0, 0)`)
     }
     await sleep(500)
     return cdp.send('Page.captureScreenshot', { format: 'png' })
   })()
-  fs.writeFileSync(path.join(outDir, 'screenshot.png'), Buffer.from(shot.data, 'base64'))
+  fs.writeFileSync(
+    path.join(outDir, 'screenshot.png'),
+    Buffer.from(shot.data, 'base64'),
+  )
   const dom = await evaluate(cdp, `document.documentElement.outerHTML`)
   fs.writeFileSync(path.join(outDir, 'dom.html'), String(dom ?? ''))
   let ax = null
@@ -356,9 +389,15 @@ async function driveFeature(cdp, pageUrl, feature, outDir) {
     await cdp.send('Accessibility.enable', {}).catch(() => {})
     const tree = await cdp.send('Accessibility.getFullAXTree', {})
     ax = tree.nodes
-    fs.writeFileSync(path.join(outDir, 'axtree.json'), JSON.stringify(ax, null, 1))
+    fs.writeFileSync(
+      path.join(outDir, 'axtree.json'),
+      JSON.stringify(ax, null, 1),
+    )
   } catch (e) {
-    fs.writeFileSync(path.join(outDir, 'axtree.json'), JSON.stringify({ error: String(e).slice(0, 300) }))
+    fs.writeFileSync(
+      path.join(outDir, 'axtree.json'),
+      JSON.stringify({ error: String(e).slice(0, 300) }),
+    )
   }
   const passed = results.filter((r) => r.pass).length
   const result = {
@@ -370,7 +409,10 @@ async function driveFeature(cdp, pageUrl, feature, outDir) {
     checks: results,
     finishedAt: new Date().toISOString(),
   }
-  fs.writeFileSync(path.join(outDir, 'result.json'), JSON.stringify(result, null, 1))
+  fs.writeFileSync(
+    path.join(outDir, 'result.json'),
+    JSON.stringify(result, null, 1),
+  )
   return result
 }
 
@@ -379,7 +421,9 @@ async function main() {
   const pageUrl = args.url ?? 'http://127.0.0.1:5173/'
   const featureArg = args.feature ?? 'all'
   const outBase = args.out ?? 'artifacts'
-  const cdpPort = Number(args['cdp-port'] ?? process.env.VERIFY_CDP_PORT ?? 19222)
+  const cdpPort = Number(
+    args['cdp-port'] ?? process.env.VERIFY_CDP_PORT ?? 19222,
+  )
   const features = featureArg === 'all' ? FEATURES : [featureArg]
   for (const f of features) {
     if (!CHECKS[f]) {
@@ -390,7 +434,9 @@ async function main() {
 
   const chrome = findChrome(args.chrome)
   if (!chrome) {
-    console.error('no Chromium/Chrome binary found. Set CHROME_PATH or install Chrome.')
+    console.error(
+      'no Chromium/Chrome binary found. Set CHROME_PATH or install Chrome.',
+    )
     process.exit(2)
   }
   console.log(`chrome: ${chrome}`)
@@ -432,7 +478,9 @@ async function main() {
       try {
         const res = await fetch(`http://127.0.0.1:${cdpPort}/json/list`)
         const list = await res.json()
-        const page = list.find((t) => t.type === 'page' && t.webSocketDebuggerUrl)
+        const page = list.find(
+          (t) => t.type === 'page' && t.webSocketDebuggerUrl,
+        )
         if (page) {
           targets = page
           break
@@ -440,11 +488,15 @@ async function main() {
       } catch {}
       await sleep(250)
     }
-    if (!targets) throw new Error('timed out waiting for Chrome remote debugging')
+    if (!targets)
+      throw new Error('timed out waiting for Chrome remote debugging')
 
     const ws = new WebSocket(targets.webSocketDebuggerUrl)
     await new Promise((resolve, reject) => {
-      const t = setTimeout(() => reject(new Error('websocket connect timeout')), 10000)
+      const t = setTimeout(
+        () => reject(new Error('websocket connect timeout')),
+        10000,
+      )
       ws.onopen = () => {
         clearTimeout(t)
         resolve()
@@ -460,14 +512,17 @@ async function main() {
 
     // Doctor-style precheck: the app must serve its shell before driving.
     const probe = await fetch(pageUrl)
-    if (!probe.ok) throw new Error(`app probe failed: HTTP ${probe.status} at ${pageUrl}`)
+    if (!probe.ok)
+      throw new Error(`app probe failed: HTTP ${probe.status} at ${pageUrl}`)
 
     let allOk = true
     for (const f of features) {
       const outDir = featureArg === 'all' ? path.join(outBase, f) : outBase
       console.log(`feature: ${f}`)
       const result = await driveFeature(cdp, pageUrl, f, outDir)
-      console.log(`  -> ${result.passed}/${result.total} passed — ${path.join(outDir, 'screenshot.png')}`)
+      console.log(
+        `  -> ${result.passed}/${result.total} passed — ${path.join(outDir, 'screenshot.png')}`,
+      )
       if (!result.ok) allOk = false
     }
     ws.close()

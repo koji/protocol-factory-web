@@ -74,8 +74,8 @@ export function AiWorkflow(): ReactNode {
             )
           </li>
           <li>
-            Use <code className={styles.codeInline}>/protocol-fix-loop</code>{' '}
-            in chat and add your prompt to generate a protocol
+            Use <code className={styles.codeInline}>/protocol-fix-loop</code> in
+            chat and add your prompt to generate a protocol
           </li>
         </ol>
       </div>

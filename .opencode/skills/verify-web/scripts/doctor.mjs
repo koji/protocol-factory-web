@@ -40,7 +40,9 @@ try {
   }
   console.log(JSON.stringify(report, null, 1))
   if (!report.ok) {
-    console.error('doctor: instance is NOT worth driving (expected HTTP 200 + <div id="root"> + vite client or built assets).')
+    console.error(
+      'doctor: instance is NOT worth driving (expected HTTP 200 + <div id="root"> + vite client or built assets).',
+    )
     process.exit(1)
   }
   console.log('doctor: instance is healthy.')

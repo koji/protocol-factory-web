@@ -34,8 +34,6 @@ describe('AiWorkflow', () => {
       screen.getByText('npx skills add koji/protocol-fix-loop'),
     ).toBeInTheDocument()
     expect(screen.getByText('/protocol-fix-loop')).toBeInTheDocument()
-    expect(
-      screen.getByText(/Install VSCode or Cursor/i),
-    ).toBeInTheDocument()
+    expect(screen.getByText(/Install VSCode or Cursor/i)).toBeInTheDocument()
   })
 })

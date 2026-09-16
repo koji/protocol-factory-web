@@ -51,7 +51,9 @@ const args = parseArgs(process.argv.slice(2))
 const feature = args.feature ?? 'all'
 const port = Number(args.port ?? process.env.VERIFY_PORT ?? 5173)
 const runId =
-  args['run-id'] ?? process.env.VERIFY_RUN_ID ?? new Date().toISOString().replace(/[:.]/g, '-')
+  args['run-id'] ??
+  process.env.VERIFY_RUN_ID ??
+  new Date().toISOString().replace(/[:.]/g, '-')
 const artifacts = path.join(SKILL_DIR, 'artifacts', runId)
 const serverLog = path.join(artifacts, 'vite-server.log')
 
@@ -59,11 +61,23 @@ fs.mkdirSync(artifacts, { recursive: true })
 const url = `http://127.0.0.1:${port}/`
 
 console.log(`launch: bun x vite --host 127.0.0.1 --port ${port} --strictPort`)
-const server = Bun.spawn([process.execPath, 'x', 'vite', '--host', '127.0.0.1', '--port', String(port), '--strictPort'], {
-  cwd: ROOT,
-  stdout: 'pipe',
-  stderr: 'pipe',
-})
+const server = Bun.spawn(
+  [
+    process.execPath,
+    'x',
+    'vite',
+    '--host',
+    '127.0.0.1',
+    '--port',
+    String(port),
+    '--strictPort',
+  ],
+  {
+    cwd: ROOT,
+    stdout: 'pipe',
+    stderr: 'pipe',
+  },
+)
 const logFile = fs.createWriteStream(serverLog)
 server.stdout.pipeTo(new WritableStream({ write: (c) => logFile.write(c) }))
 server.stderr.pipeTo(new WritableStream({ write: (c) => logFile.write(c) }))
@@ -75,7 +89,9 @@ try {
   const start = Date.now()
   while (Date.now() - start < 30000) {
     if (server.exitCode !== null && server.exitCode !== undefined) {
-      throw new Error(`vite exited early (code ${server.exitCode}); see ${serverLog}`)
+      throw new Error(
+        `vite exited early (code ${server.exitCode}); see ${serverLog}`,
+      )
     }
     try {
       const res = await fetch(url)
@@ -86,23 +102,37 @@ try {
     } catch {}
     await sleep(300)
   }
-  if (!ready) throw new Error(`vite never became ready at ${url}; see ${serverLog}`)
+  if (!ready)
+    throw new Error(`vite never became ready at ${url}; see ${serverLog}`)
   console.log(`launch: ready at ${url}`)
 
   // Doctor (official read-only check, as a separate step).
   console.log('doctor:')
-  const doctor = Bun.spawn(['bun', path.join(SKILL_DIR, 'scripts', 'doctor.mjs'), '--url', url], {
-    cwd: ROOT,
-    stdout: 'inherit',
-    stderr: 'inherit',
-  })
+  const doctor = Bun.spawn(
+    ['bun', path.join(SKILL_DIR, 'scripts', 'doctor.mjs'), '--url', url],
+    {
+      cwd: ROOT,
+      stdout: 'inherit',
+      stderr: 'inherit',
+    },
+  )
   const doctorCode = await doctor.exited
-  if (doctorCode !== 0) throw new Error('doctor reported the instance is not worth driving')
+  if (doctorCode !== 0)
+    throw new Error('doctor reported the instance is not worth driving')
 
   // Drive.
   console.log('drive:')
   const drive = Bun.spawn(
-    ['bun', path.join(SKILL_DIR, 'scripts', 'drive.mjs'), '--url', url, '--feature', feature, '--out', artifacts],
+    [
+      'bun',
+      path.join(SKILL_DIR, 'scripts', 'drive.mjs'),
+      '--url',
+      url,
+      '--feature',
+      feature,
+      '--out',
+      artifacts,
+    ],
     { cwd: ROOT, stdout: 'inherit', stderr: 'inherit' },
   )
   const driveCode = await drive.exited
@@ -121,7 +151,10 @@ try {
   const hasShot = walked.some((p) => p.endsWith('screenshot.png'))
   const hasResult = walked.some((p) => p.endsWith('result.json'))
   console.log(`artifacts: ${artifacts} (${walked.length} files)`)
-  if (!hasShot || !hasResult) throw new Error('evidence missing after run (screenshot.png + result.json required)')
+  if (!hasShot || !hasResult)
+    throw new Error(
+      'evidence missing after run (screenshot.png + result.json required)',
+    )
 } catch (e) {
   console.error(`verify failed: ${e?.message ?? e}`)
   exitCode = 1
@@ -142,7 +175,9 @@ try {
       break
     }
   }
-  console.log(`cleanup: vite server stopped (port free: ${portFree}; artifacts retained).`)
+  console.log(
+    `cleanup: vite server stopped (port free: ${portFree}; artifacts retained).`,
+  )
   if (!portFree) {
     console.error(`cleanup: port ${port} is still owned after teardown`)
     exitCode = 1
