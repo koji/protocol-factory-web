@@ -1,0 +1,74 @@
+.section {
+  padding-block: 32px 88px;
+}
+
+.heading {
+  margin: 0 0 16px;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  letter-spacing: -0.01em;
+}
+
+.lead {
+  max-width: 72ch;
+  margin: 0 0 32px;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.link {
+  color: var(--color-accent-strong);
+}
+
+.figure {
+  margin: 0 0 32px;
+}
+
+.video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background: var(--color-surface);
+}
+
+.caption {
+  margin-top: 12px;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.subHeading {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+}
+
+.steps {
+  max-width: 72ch;
+  margin: 0;
+  padding: 24px 24px 24px 42px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.steps li + li {
+  margin-top: 8px;
+}
+
+.codeInline {
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+  color: var(--color-accent-strong);
+  font-size: 0.85em;
+}
+
+.muted {
+  font-size: 0.9em;
+}

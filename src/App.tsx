@@ -3,6 +3,7 @@ import { useTheme } from './hooks/useTheme'
 import { Header } from './components/Header/Header'
 import { Hero } from './components/Hero/Hero'
 import { Features } from './components/Features/Features'
+import { AiWorkflow } from './components/AiWorkflow/AiWorkflow'
 import { Screenshot } from './components/Screenshot/Screenshot'
 import { TryCta } from './components/TryCta/TryCta'
 import { Install } from './components/Install/Install'
@@ -19,6 +20,7 @@ export default function App(): ReactNode {
         <Hero />
         <Features />
         <Screenshot />
+        <AiWorkflow />
         <TryCta />
         <Install />
       </main>

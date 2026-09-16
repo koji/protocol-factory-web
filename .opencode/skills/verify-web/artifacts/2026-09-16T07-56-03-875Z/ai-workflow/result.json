@@ -1,0 +1,55 @@
+{
+  "feature": "ai-workflow",
+  "url": "http://127.0.0.1:5181/",
+  "passed": 7,
+  "total": 7,
+  "ok": true,
+  "checks": [
+    {
+      "id": "ai-region",
+      "pass": true,
+      "value": true,
+      "error": null
+    },
+    {
+      "id": "ai-heading",
+      "pass": true,
+      "value": "Generate protocols with AI, verify with Protocol Visualizer",
+      "error": null
+    },
+    {
+      "id": "ai-video",
+      "pass": true,
+      "value": {
+        "src": "https://github.com/user-attachments/assets/812fbcdf-a84a-49fd-b631-ae925b64dddf",
+        "controls": true
+      },
+      "error": null
+    },
+    {
+      "id": "ai-skill-command",
+      "pass": true,
+      "value": true,
+      "error": null
+    },
+    {
+      "id": "ai-slash-command",
+      "pass": true,
+      "value": true,
+      "error": null
+    },
+    {
+      "id": "ai-skill-links",
+      "pass": true,
+      "value": 2,
+      "error": null
+    },
+    {
+      "id": "ai-install-link",
+      "pass": true,
+      "value": true,
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-09-16T07:56:13.724Z"
+}
