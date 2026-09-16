@@ -1,0 +1,616 @@
+<html lang="en" data-theme="dark"><head>
+    <script type="module">import { injectIntoGlobalHook } from "/@react-refresh";
+injectIntoGlobalHook(window);
+window.$RefreshReg$ = () => {};
+window.$RefreshSig$ = () => (type) => type;</script>
+
+    <script type="module" src="/@vite/client"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A VSCode extension that simulates Opentrons Python protocols and visualizes deck state and liquid volumes in real time.">
+    <meta property="og:title" content="Protocol Visualizer — Simulate Opentrons protocols in VSCode">
+    <meta property="og:description" content="Simulate your Opentrons Python protocols and inspect deck layout and liquid volumes in real time — without leaving VSCode.">
+    <meta property="og:type" content="website">
+    <!-- og:image intentionally omitted until a real screenshot exists -->
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+    <title>Protocol Visualizer — Simulate Opentrons protocols in VSCode</title>
+    <script>
+      ;(function () {
+        var t
+        try {
+          t = localStorage.getItem('theme')
+        } catch (e) {}
+        if (t !== 'dark' && t !== 'light') {
+          t = window.matchMedia('(prefers-color-scheme: light)').matches
+            ? 'light'
+            : 'dark'
+        }
+        document.documentElement.dataset.theme = t
+      })()
+    </script>
+  <style type="text/css" data-vite-dev-id="C:/Users/19172/Desktop/dev/protocol-visualizer-web/src/styles/tokens.css">*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+:root {
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+:root,
+[data-theme='dark'] {
+  color-scheme: dark;
+  --color-bg: #0b1220;
+  --color-surface: #121b2e;
+  --color-border: #263450;
+  --color-text: #e6edf7;
+  --color-text-muted: #9aa7bd;
+  --color-accent: #22d3ee;
+  --color-accent-strong: #7dd3fc;
+  --color-on-accent: #05242c;
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+  --color-bg: #f7fafc;
+  --color-surface: #ffffff;
+  --color-border: #d9e2ec;
+  --color-text: #12263f;
+  --color-text-muted: #51637a;
+  --color-accent: #0e7490;
+  --color-accent-strong: #155e75;
+  --color-on-accent: #ffffff;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.container {
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+</style><style type="text/css" data-vite-dev-id="C:/Users/19172/Desktop/dev/protocol-visualizer-web/src/components/RequestAccess/RequestAccessButton.module.css">._button_j0lil_1 {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
+}
+
+._button_j0lil_1:hover {
+  background: var(--color-accent-strong);
+  transform: translateY(-1px);
+}
+
+._compact_j0lil_47 {
+  padding: 8px 16px;
+  font-size: 0.875rem;
+}
+</style><style type="text/css" data-vite-dev-id="C:/Users/19172/Desktop/dev/protocol-visualizer-web/src/components/ThemeToggle/ThemeToggle.module.css">._toggle_109yr_1 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+._toggle_109yr_1:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+</style><style type="text/css" data-vite-dev-id="C:/Users/19172/Desktop/dev/protocol-visualizer-web/src/components/Header/Header.module.css">._header_rm3nz_1 {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-bg) 85%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+._inner_rm3nz_19 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-block: 12px;
+  padding-inline: 20px;
+}
+
+._brand_rm3nz_41 {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-text);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+._logo_rm3nz_59 {
+  width: 28px;
+  height: 28px;
+  color: var(--color-accent);
+}
+
+._nav_rm3nz_71 {
+  display: flex;
+  gap: 24px;
+}
+
+._nav_rm3nz_71 a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+._nav_rm3nz_71 a:hover {
+  color: var(--color-accent);
+}
+
+._actions_rm3nz_101 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+@media (max-width: 767px) {
+  ._nav_rm3nz_71 {
+    display: none;
+  }
+}
+</style><style type="text/css" data-vite-dev-id="C:/Users/19172/Desktop/dev/protocol-visualizer-web/src/components/Hero/Hero.module.css">._hero_1scll_1 {
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-border);
+  background:
+    radial-gradient(
+      60% 80% at 80% 10%,
+      color-mix(in srgb, var(--color-accent) 12%, transparent),
+      transparent
+    ),
+    var(--color-bg);
+  animation: _heroFade_1scll_1 0.6s ease both;
+}
+
+@keyframes _heroFade_1scll_1 {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+._inner_1scll_49 {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  align-items: center;
+  gap: 48px;
+  padding-block: 96px 104px;
+}
+
+._titleRow_1scll_65 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+._title_1scll_65 {
+  margin: 0;
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+._badge_1scll_95 {
+  padding: 4px 12px;
+  border: 1px solid var(--color-accent);
+  border-radius: 999px;
+  color: var(--color-accent);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+._tagline_1scll_117 {
+  margin: 0 0 32px;
+  max-width: 34em;
+  color: var(--color-text-muted);
+  font-size: 1.125rem;
+}
+
+._ctaRow_1scll_131 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+._guideLink_1scll_145 {
+  color: var(--color-accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+._guideLink_1scll_145:hover {
+  text-decoration: underline;
+}
+
+._visual_1scll_165 {
+  display: flex;
+  justify-content: center;
+}
+
+._beaker_1scll_175 {
+  width: clamp(160px, 22vw, 260px);
+  height: auto;
+  color: var(--color-accent);
+  filter: drop-shadow(
+    0 0 40px color-mix(in srgb, var(--color-accent) 30%, transparent)
+  );
+}
+
+@media (max-width: 1023px) {
+  ._inner_1scll_49 {
+    grid-template-columns: 1fr;
+    padding-block: 64px 72px;
+  }
+
+  ._visual_1scll_165 {
+    order: -1;
+  }
+
+  ._beaker_1scll_175 {
+    width: 140px;
+  }
+}
+</style><style type="text/css" data-vite-dev-id="C:/Users/19172/Desktop/dev/protocol-visualizer-web/src/components/Features/Features.module.css">._section_ej7rx_1 {
+  padding-block: 88px;
+}
+
+._heading_ej7rx_9 {
+  margin: 0 0 40px;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  letter-spacing: -0.01em;
+}
+
+._grid_ej7rx_21 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+._card_ej7rx_39 {
+  height: 100%;
+  padding: 24px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background: var(--color-surface);
+  transition:
+    border-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+._card_ej7rx_39:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+._cardTitle_ej7rx_71 {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+}
+
+._cardBody_ej7rx_81 {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 1023px) {
+  ._grid_ej7rx_21 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  ._grid_ej7rx_21 {
+    grid-template-columns: 1fr;
+  }
+}
+</style><style type="text/css" data-vite-dev-id="C:/Users/19172/Desktop/dev/protocol-visualizer-web/src/components/AiWorkflow/AiWorkflow.module.css">._section_wdjk0_1 {
+  padding-block: 32px 88px;
+}
+
+._heading_wdjk0_5 {
+  margin: 0 0 16px;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  letter-spacing: -0.01em;
+}
+
+._lead_wdjk0_11 {
+  max-width: 72ch;
+  margin: 0 0 32px;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+._link_wdjk0_19 {
+  color: var(--color-accent-strong);
+}
+
+._figure_wdjk0_23 {
+  margin: 0 0 32px;
+}
+
+._video_wdjk0_27 {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background: var(--color-surface);
+}
+
+._caption_wdjk0_36 {
+  margin-top: 12px;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+._subHeading_wdjk0_43 {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+}
+
+._steps_wdjk0_48 {
+  max-width: 72ch;
+  margin: 0;
+  padding: 24px 24px 24px 42px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+._steps_wdjk0_48 li + li {
+  margin-top: 8px;
+}
+
+._codeInline_wdjk0_64 {
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+  color: var(--color-accent-strong);
+  font-size: 0.85em;
+}
+
+._muted_wdjk0_72 {
+  font-size: 0.9em;
+}
+</style><style type="text/css" data-vite-dev-id="C:/Users/19172/Desktop/dev/protocol-visualizer-web/src/components/Screenshot/Screenshot.module.css">._section_njy0p_1 {
+  padding-block: 32px 88px;
+}
+
+._figure_njy0p_9 {
+  margin: 0;
+}
+
+._demo_njy0p_17 {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background: var(--color-surface);
+}
+
+._caption_njy0p_35 {
+  margin-top: 12px;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
+</style><style type="text/css" data-vite-dev-id="C:/Users/19172/Desktop/dev/protocol-visualizer-web/src/components/TryCta/TryCta.module.css">._band_1selm_1 {
+  border-block: 1px solid var(--color-border);
+  background:
+    radial-gradient(
+      50% 120% at 50% 0%,
+      color-mix(in srgb, var(--color-accent) 14%, transparent),
+      transparent
+    ),
+    var(--color-surface);
+}
+
+._inner_1selm_23 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding-block: 72px;
+  text-align: center;
+}
+
+._heading_1selm_41 {
+  margin: 0;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  letter-spacing: -0.01em;
+}
+
+._body_1selm_53 {
+  margin: 0 0 16px;
+  max-width: 36em;
+  color: var(--color-text-muted);
+}
+</style><style type="text/css" data-vite-dev-id="C:/Users/19172/Desktop/dev/protocol-visualizer-web/src/components/Install/Install.module.css">._section_1q2yt_1 {
+  padding-block: 88px;
+  border-top: 1px solid var(--color-border);
+}
+
+._heading_1q2yt_11 {
+  margin: 0 0 40px;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  letter-spacing: -0.01em;
+}
+
+._columns_1q2yt_23 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+._block_1q2yt_35 {
+  padding: 24px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background: var(--color-surface);
+}
+
+._subHeading_1q2yt_49 {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+}
+
+._list_1q2yt_59 {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+._list_1q2yt_59 li + li {
+  margin-top: 8px;
+}
+
+._codeInline_1q2yt_81 {
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+  color: var(--color-accent-strong);
+  font-size: 0.85em;
+}
+
+._codeBlock_1q2yt_97 {
+  margin: 0;
+  padding: 14px 16px;
+  overflow-x: auto;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+  color: var(--color-accent-strong);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 1023px) {
+  ._columns_1q2yt_23 {
+    grid-template-columns: 1fr;
+  }
+}
+</style><style type="text/css" data-vite-dev-id="C:/Users/19172/Desktop/dev/protocol-visualizer-web/src/components/Disclaimer/Disclaimer.module.css">._band_19lmv_1 {
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+._inner_19lmv_11 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding-block: 20px;
+}
+
+._text_19lmv_27 {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+</style><style type="text/css" data-vite-dev-id="C:/Users/19172/Desktop/dev/protocol-visualizer-web/src/components/Footer/Footer.module.css">._footer_82w33_1 {
+  padding-block: 28px;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+._inner_82w33_15 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+._links_82w33_31 {
+  display: flex;
+  gap: 20px;
+}
+
+._links_82w33_31 a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+._links_82w33_31 a:hover {
+  color: var(--color-accent);
+}
+</style></head>
+  <body>
+    <div id="root"><div id="top"><header class="_header_rm3nz_1"><div class="_inner_rm3nz_19"><a href="#top" class="_brand_rm3nz_41"><svg viewBox="0 0 32 32" class="_logo_rm3nz_59" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11 4h10M12 4v9.2L6.9 23.3A2.4 2.4 0 0 0 9.06 26.8h13.88a2.4 2.4 0 0 0 2.16-3.5L20 13.2V4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M13.1 17.4h5.8l2.75 5.6H10.35l2.75-5.6Z" fill="currentColor" opacity="0.55"></path><circle cx="14.6" cy="21.2" r="0.95" fill="currentColor"></circle><circle cx="18.1" cy="20.4" r="0.6" fill="currentColor"></circle></svg><span>Protocol Visualizer</span></a><nav class="_nav_rm3nz_71" aria-label="Section navigation"><a href="#features">Features</a><a href="#install">Install</a></nav><div class="_actions_rm3nz_101"><a class="_button_j0lil_1 _compact_j0lil_47" href="https://docs.google.com/forms/d/e/1FAIpQLSee8RapmgEfDE2QQtonDNmai44tuyidFQx5A4CiPfXO7_lFgQ/viewform?usp=publish-editor" target="_blank" rel="noreferrer">Request access</a><button type="button" class="_toggle_109yr_1" aria-label="Switch to light theme" title="Switch to light theme"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></button></div></div></header><main><section class="_hero_1scll_1"><div class="container _inner_1scll_49"><div><div class="_titleRow_1scll_65"><h1 class="_title_1scll_65">Protocol Visualizer</h1><span class="_badge_1scll_95">Preview</span></div><p class="_tagline_1scll_117">Simulate your Opentrons Python protocols and inspect deck layout and liquid volumes in real time — without leaving VSCode.</p><div class="_ctaRow_1scll_131"><a class="_button_j0lil_1" href="https://docs.google.com/forms/d/e/1FAIpQLSee8RapmgEfDE2QQtonDNmai44tuyidFQx5A4CiPfXO7_lFgQ/viewform?usp=publish-editor" target="_blank" rel="noreferrer">Request access</a><a class="_guideLink_1scll_145" href="#install">Installation guide ↓</a></div></div><div class="_visual_1scll_165" aria-hidden="true"><svg viewBox="0 0 32 32" class="_beaker_1scll_175" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11 4h10M12 4v9.2L6.9 23.3A2.4 2.4 0 0 0 9.06 26.8h13.88a2.4 2.4 0 0 0 2.16-3.5L20 13.2V4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M13.1 17.4h5.8l2.75 5.6H10.35l2.75-5.6Z" fill="currentColor" opacity="0.55"></path><circle cx="14.6" cy="21.2" r="0.95" fill="currentColor"></circle><circle cx="18.1" cy="20.4" r="0.6" fill="currentColor"></circle></svg></div></div></section><section id="features" class="_section_ej7rx_1" aria-label="Features"><div class="container"><h2 class="_heading_ej7rx_9">Everything you need to see your protocol run</h2><ul class="_grid_ej7rx_21"><li><article class="_card_ej7rx_39"><h3 class="_cardTitle_ej7rx_71">Real-time Deck Visualization</h3><p class="_cardBody_ej7rx_81">Deck state and liquid volume changes render in real time through an interactive panel while your protocol runs.</p></article></li><li><article class="_card_ej7rx_39"><h3 class="_cardTitle_ej7rx_71">Auto-analysis on Save</h3><p class="_cardBody_ej7rx_81">The simulation automatically reruns whenever you save changes (Ctrl+S / Cmd+S) to your protocol file.</p></article></li><li><article class="_card_ej7rx_39"><h3 class="_cardTitle_ej7rx_71">Runtime Parameters UI</h3><p class="_cardBody_ej7rx_81">Input fields are generated for Opentrons Runtime Parameters; hit Analyze to apply them — your original code is never modified.</p></article></li><li><article class="_card_ej7rx_39"><h3 class="_cardTitle_ej7rx_71">Custom Labware Support</h3><p class="_cardBody_ej7rx_81">Place custom labware definition files (.json) in the same directory as your protocol file and they just work.</p></article></li><li><article class="_card_ej7rx_39"><h3 class="_cardTitle_ej7rx_71">Pop-out Window</h3><p class="_cardBody_ej7rx_81">Pop the panel out to its own window or drag the tab to another monitor via VSCode's Auxiliary Window support.</p></article></li><li><article class="_card_ej7rx_39"><h3 class="_cardTitle_ej7rx_71">Step Jumper</h3><p class="_cardBody_ej7rx_81">Enter any step number under Protocol Steps and hit Enter to jump the visualization state instantly.</p></article></li></ul></div></section><section id="ai-workflow" class="_section_wdjk0_1" aria-label="Generate protocols with AI"><div class="container"><h2 class="_heading_wdjk0_5">Generate protocols with AI, verify with Protocol Visualizer</h2><p class="_lead_wdjk0_11">Connect Protocol Visualizer to your LLM with <a class="_link_wdjk0_19" href="https://github.com/koji/protocol-fix-loop" target="_blank" rel="noreferrer">protocol-fix-loop</a>. Generate Opentrons protocols with GitHub Copilot or Cursor, then simulate and fix them in a visual feedback loop.</p><figure class="_figure_wdjk0_23"><video class="_video_wdjk0_27" src="https://github.com/user-attachments/assets/812fbcdf-a84a-49fd-b631-ae925b64dddf" controls="" preload="metadata" aria-label="Demo video of generating and fixing a protocol with protocol-fix-loop and Protocol Visualizer">Your browser does not support the video tag.</video><figcaption class="_caption_wdjk0_36">Generate a protocol from a prompt, then fix it while watching the simulation</figcaption></figure><h3 class="_subHeading_wdjk0_43">How to use</h3><ol class="_steps_wdjk0_48"><li>Install VSCode or Cursor</li><li>Install the skill: <code class="_codeInline_wdjk0_64">npx skills add koji/protocol-fix-loop</code> <span class="_muted_wdjk0_72">(see <a class="_link_wdjk0_19" href="https://github.com/koji/protocol-fix-loop" target="_blank" rel="noreferrer">koji/protocol-fix-loop</a>)</span></li><li>Install the Protocol Visualizer extension (see <a class="_link_wdjk0_19" href="#install">Installation guide</a>)</li><li>Use <code class="_codeInline_wdjk0_64">/protocol-fix-loop</code> in chat and add your prompt to generate a protocol</li></ol></div></section><section class="_section_njy0p_1" aria-label="Screenshot"><div class="container"><figure class="_figure_njy0p_9"><img class="_demo_njy0p_17" alt="Protocol Visualizer visualizing an Opentrons protocol on a simulated deck" loading="lazy" src="https://github.com/user-attachments/assets/eeb96be5-8334-4370-bd4a-1564cb12d690"><figcaption class="_caption_njy0p_35">Protocol Visualizer in action</figcaption></figure></div></section><section class="_band_1selm_1" aria-label="Request access"><div class="container _inner_1selm_23"><h2 class="_heading_1selm_41">Want to try the extension?</h2><p class="_body_1selm_53">Request access via our form — requests are handled individually.</p><a class="_button_j0lil_1" href="https://docs.google.com/forms/d/e/1FAIpQLSee8RapmgEfDE2QQtonDNmai44tuyidFQx5A4CiPfXO7_lFgQ/viewform?usp=publish-editor" target="_blank" rel="noreferrer">Request access</a></div></section><section id="install" class="_section_1q2yt_1" aria-label="Installation guide"><div class="container"><h2 class="_heading_1q2yt_11">Installation</h2><div class="_columns_1q2yt_23"><div class="_block_1q2yt_35"><h3 class="_subHeading_1q2yt_49">Prerequisites</h3><ul class="_list_1q2yt_59"><li><strong>Python 3.8 or later</strong>, with <code>python3</code> available in PATH</li><li>The <code>opentrons</code> Python package: <code class="_codeInline_1q2yt_81">pip install opentrons</code></li><li>For OT-2 use <code class="_codeInline_1q2yt_81">pip install opentrons==9.0.0</code> (opentrons 9.1.0+ dropped OT-2 support)</li><li>Select the matching Python interpreter in VSCode via <code>Python: Select Interpreter</code></li><li>Using both Flex and OT-2? Keep them in a separate virtual environment each and switch per protocol.</li></ul></div><div class="_block_1q2yt_35" aria-label="Method A: Command Palette"><h3 class="_subHeading_1q2yt_49">Method A: Command Palette</h3><ol class="_list_1q2yt_59"><li>Open the Command Palette (<kbd>Cmd+Shift+P</kbd> / <kbd>Ctrl+Shift+P</kbd>)</li><li>Select <code>Extensions: Install from VSIX...</code></li><li>Choose the downloaded <code>.vsix</code> file</li></ol></div><div class="_block_1q2yt_35" aria-label="Method B: Command line"><h3 class="_subHeading_1q2yt_49">Method B: Command line</h3><pre class="_codeBlock_1q2yt_97"><code>code --install-extension protocol-visualizer.vsix</code></pre></div></div></div></section></main><aside class="_band_19lmv_1" aria-label="Disclaimer"><div class="container _inner_19lmv_11"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v5M12 16.5v.01"></path></svg><p class="_text_19lmv_27">Protocol Visualizer is an independent project and is not affiliated with or endorsed by Opentrons.</p></div></aside><footer class="_footer_82w33_1"><div class="container _inner_82w33_15"><small>MIT License © 2026 Koji Kanao</small><nav class="_links_82w33_31" aria-label="External links"><a href="https://docs.google.com/forms/d/e/1FAIpQLSee8RapmgEfDE2QQtonDNmai44tuyidFQx5A4CiPfXO7_lFgQ/viewform?usp=publish-editor" target="_blank" rel="noreferrer">Feedback</a></nav></div></footer></div></div>
+    <script type="module" src="/src/main.tsx"></script>
+  
+
+</body></html>

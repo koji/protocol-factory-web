@@ -1,0 +1,53 @@
+{
+ "feature": "install-guide",
+ "url": "http://127.0.0.1:5180/",
+ "passed": 5,
+ "total": 5,
+ "ok": true,
+ "checks": [
+  {
+   "id": "install-region",
+   "pass": true,
+   "value": true,
+   "error": null
+  },
+  {
+   "id": "install-prereqs",
+   "pass": true,
+   "value": "InstallationPrerequisitesPython 3.8 or later, with python3 available in PATHThe opentrons Python package: pip install opentronsFor OT-2 use pip install opentrons==9.0.0 (opentrons 9.1.0+ dropped OT-2 support)Select the matching Python interpreter in VSCode via Python: Select InterpreterUsing both Flex and OT-2? Keep them in a separate virtual environment each and switch per protocol.Method A: Command PaletteOpen the Command Palette (Cmd+Shift+P / Ctrl+Shift+P)Select Extensions: Install from VSIX...Choose the downloaded .vsix fileMethod B: Command linecode --install-extension protocol-visualizer.vsix",
+   "error": null
+  },
+  {
+   "id": "install-cli-method",
+   "pass": true,
+   "value": true,
+   "error": null
+  },
+  {
+   "id": "header-nav",
+   "pass": true,
+   "value": [
+    [
+     "Features",
+     "#features"
+    ],
+    [
+     "Install",
+     "#install"
+    ]
+   ],
+   "error": null
+  },
+  {
+   "id": "anchor-navigation",
+   "pass": true,
+   "value": {
+    "hash": "#install",
+    "top": 0,
+    "vh": 749
+   },
+   "error": null
+  }
+ ],
+ "finishedAt": "2026-09-16T07:46:34.620Z"
+}
