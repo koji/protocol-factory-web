@@ -84,3 +84,49 @@ If you encounter any errors or bugs, please report them to the #visualization-ex
 ## 4. License
 
 MIT License © 2026 Koji Kanao
+
+
+---
+
+## 5. Contributing
+
+This section is for contributing to this website. The [Prerequisites](#1-prerequisites) above are for using the extension and are not needed for website development.
+
+### Propose a change
+
+1. Check existing [issues](https://github.com/koji/protocol-visualizer-web/issues) and [pull requests](https://github.com/koji/protocol-visualizer-web/pulls) to see whether the change is already being discussed.
+2. Open an issue describing the problem and the change you intend to make. For substantial changes, please discuss the approach in the issue before implementing it.
+
+### Set up the project
+
+The website is built with [Vite](https://vite.dev) and React. You need Node.js LTS and pnpm 10:
+
+```bash
+# from the repository root
+pnpm install --frozen-lockfile
+pnpm run dev
+```
+
+`pnpm run dev` starts a local dev server, by default at http://localhost:5173.
+
+### Verify your change
+
+Run these from the repository root before opening a pull request:
+
+```bash
+pnpm run lint
+pnpm run format:check
+pnpm run test
+pnpm run build
+```
+
+`pnpm run build` also runs the TypeScript compiler. The same checks run in CI.
+
+### Open a pull request
+
+1. Create a focused branch, commit your change, and push the branch to your fork.
+2. Open a pull request against the default branch, linking the issue that describes the change.
+3. Include a short summary of the change and the verification results. For visual changes, include before/after screenshots.
+4. A maintainer will review your pull request, so please respond to review feedback.
+
+---
