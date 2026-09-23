@@ -813,7 +813,10 @@ describe('DownloadButton (VSIX published)', () => {
   it('renders a download link to the fixed vsix path', () => {
     render(<DownloadButton />)
     const link = screen.getByRole('link', { name: /Download \.vsix/i })
-    expect(link).toHaveAttribute('href', './downloads/protocol-factory-0.2.9-alpha.vsix')
+    expect(link).toHaveAttribute(
+      'href',
+      './downloads/protocol-factory-0.2.9-alpha.vsix',
+    )
     expect(link).toHaveAttribute('download')
   })
 })
@@ -923,9 +926,7 @@ import { BeakerLogo } from './BeakerLogo'
 describe('BeakerLogo', () => {
   it('exposes an accessible name when a label is given', () => {
     const { getByRole } = render(<BeakerLogo label="Protocol Factory" />)
-    expect(
-      getByRole('img', { name: 'Protocol Factory' }),
-    ).toBeInTheDocument()
+    expect(getByRole('img', { name: 'Protocol Factory' })).toBeInTheDocument()
   })
 
   it('is hidden from assistive tech when no label is given', () => {
@@ -1887,7 +1888,9 @@ export function Install(): ReactNode {
           <div className={styles.block} aria-label="Method B: Command line">
             <h3 className={styles.subHeading}>Method B: Command line</h3>
             <pre className={styles.codeBlock}>
-              <code>code --install-extension protocol-factory-0.2.9-alpha.vsix</code>
+              <code>
+                code --install-extension protocol-factory-0.2.9-alpha.vsix
+              </code>
             </pre>
           </div>
         </div>

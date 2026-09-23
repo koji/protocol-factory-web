@@ -19,11 +19,11 @@ The primary goal is to convince Opentrons protocol authors to install the extens
 | Tech stack       | TypeScript, React 19, Vite, CSS Modules                                                                  |
 | Theme            | Dark & light with toggle; initial = OS `prefers-color-scheme`, manual choice persisted in `localStorage` |
 | Accent color     | Cyan / teal family (dark: ~`#22d3ee`, light: ~`#0e7490`), AA contrast on both themes                     |
-| Download CTA     | Direct download of `.vsix` hosted on this site (`public/downloads/protocol-factory-0.2.9-alpha.vsix`)             |
+| Download CTA     | Direct download of `.vsix` hosted on this site (`public/downloads/protocol-factory-0.2.9-alpha.vsix`)    |
 | Until VSIX ready | Button disabled with "Coming soon" label, driven by a single config flag                                 |
 | VSIX naming      | Fixed filename, overwritten each release; no site edits needed per release                               |
 | Deployment       | Undecided → build with `base: './'` so output works anywhere                                             |
-| Product name     | "Protocol Factory"                                                                                    |
+| Product name     | "Protocol Factory"                                                                                       |
 | GitHub links     | Repository will be public in the future; link config hides empty URLs                                    |
 | Logo / favicon   | Original simple beaker SVG using `currentColor`; doubles as favicon                                      |
 | Animation        | Subtle CSS transitions only (hover, hero fade); no animation libraries                                   |
