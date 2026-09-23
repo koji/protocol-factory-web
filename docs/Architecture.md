@@ -28,7 +28,7 @@ This extension is designed to operate through the collaboration of three compone
 ## Directory Structure and File Roles
 
 ```text
-opentrons-protocol-viz/
+protocol-factory/
 ├── .vscode/                 # Configuration for launching and debugging VSCode
 ├── src/                     # Extension backend (TypeScript)
 │   ├── extension.ts         # Extension entry point (command registration)
