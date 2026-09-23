@@ -24,7 +24,7 @@ Preconditions:
 
 - **Region.** Find the section. Run `bun .opencode/skills/verify-web/scripts/drive.mjs --url http://127.0.0.1:5173/ --feature install-guide --out <dir>`. A `section#install` with accessible name `Installation guide` exists.
 - **Prerequisites.** Read the block. The run asserts the text contains `Python 3.8 or later`, `pip install opentrons`, and `Python: Select Interpreter`.
-- **CLI method.** Read the second method. The run asserts the text contains `code --install-extension protocol-visualizer.vsix`.
+- **CLI method.** Read the second method. The run asserts the text contains `code --install-extension protocol-factory-0.2.9-alpha.vsix`.
 - **Nav links.** Inspect the header. The run asserts `Section navigation` contains `Features` → `#features` and `Install` → `#install`.
 - **Anchor jump.** Choose `Install` in the header nav. The run clicks it and asserts `location.hash` becomes `#install` with the install section inside the viewport.
 - **Proof.** Inspect the artifacts. `<dir>/screenshot.png` shows the page after the anchor jump, `<dir>/dom.html` contains the prerequisite texts, `<dir>/result.json` records all five checks passing.

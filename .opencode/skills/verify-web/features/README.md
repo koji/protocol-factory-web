@@ -1,6 +1,6 @@
-# protocol-visualizer-web verification map
+# protocol-factory-web verification map
 
-This directory is the maintained source for verifying the user-facing behavior of the Protocol Visualizer landing page. Read this index before driving the app, then use the matching feature file as the recipe.
+This directory is the maintained source for verifying the user-facing behavior of the Protocol Factory landing page. Read this index before driving the app, then use the matching feature file as the recipe.
 
 ## Baseline preconditions
 
@@ -41,7 +41,7 @@ Keep implementation details out of the map. Name only user paths, stable handles
 ## Features
 
 - [Hero](./hero.md) covers headline, tagline, request-access CTAs, and the install-guide link.
-- [Features grid](./features-grid.md) covers the six feature cards under "Everything you need to see your protocol run".
+- [Features grid](./features-grid.md) covers the seven feature cards under "Everything you need to see your protocol run".
 - [AI workflow](./ai-workflow.md) covers the protocol-fix-loop video, skill command, and repo links.
 - [Theme toggle](./theme-toggle.md) covers dark/light switching and persistence.
 - [Install guide](./install-guide.md) covers prerequisites, install methods, and header anchor navigation.
