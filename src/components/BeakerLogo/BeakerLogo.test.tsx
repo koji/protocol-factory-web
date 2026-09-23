@@ -4,9 +4,9 @@ import { BeakerLogo } from './BeakerLogo'
 
 describe('BeakerLogo', () => {
   it('exposes an accessible name when a label is given', () => {
-    const { getByRole } = render(<BeakerLogo label="Protocol Visualizer" />)
+    const { getByRole } = render(<BeakerLogo label="Protocol Factory" />)
     expect(
-      getByRole('img', { name: 'Protocol Visualizer' }),
+      getByRole('img', { name: 'Protocol Factory' }),
     ).toBeInTheDocument()
   })
 

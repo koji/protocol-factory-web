@@ -15,10 +15,10 @@ export function AiWorkflow(): ReactNode {
     >
       <div className="container">
         <h2 className={styles.heading}>
-          Generate protocols with AI, verify with Protocol Visualizer
+          Generate protocols with AI, verify with Protocol Factory
         </h2>
         <p className={styles.lead}>
-          Connect Protocol Visualizer to your LLM with{' '}
+          Connect Protocol Factory to your LLM with{' '}
           <a
             className={styles.link}
             href={SKILL_REPO}
@@ -37,7 +37,7 @@ export function AiWorkflow(): ReactNode {
             src={DEMO_VIDEO}
             controls
             preload="metadata"
-            aria-label="Demo video of generating and fixing a protocol with protocol-fix-loop and Protocol Visualizer"
+            aria-label="Demo video of generating and fixing a protocol with protocol-fix-loop and Protocol Factory"
           >
             Your browser does not support the video tag.
           </video>
@@ -67,7 +67,7 @@ export function AiWorkflow(): ReactNode {
             </span>
           </li>
           <li>
-            Install the Protocol Visualizer extension (see{' '}
+            Install the Protocol Factory extension (see{' '}
             <a className={styles.link} href="#install">
               Installation guide
             </a>

@@ -12,11 +12,11 @@ export function Screenshot(): ReactNode {
           <img
             className={styles.demo}
             src={DEMO_GIF}
-            alt="Protocol Visualizer visualizing an Opentrons protocol on a simulated deck"
+            alt="Protocol Factory visualizing an Opentrons protocol on a simulated deck"
             loading="lazy"
           />
           <figcaption className={styles.caption}>
-            Protocol Visualizer in action
+            Protocol Factory in action
           </figcaption>
         </figure>
       </div>
