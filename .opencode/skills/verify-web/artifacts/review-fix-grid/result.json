@@ -1,36 +1,36 @@
 {
- "feature": "features-grid",
- "url": "http://127.0.0.1:5173/",
- "passed": 3,
- "total": 3,
- "ok": true,
- "checks": [
-  {
-   "id": "features-region",
-   "pass": true,
-   "value": true,
-   "error": null
-  },
-  {
-   "id": "features-heading",
-   "pass": true,
-   "value": "Everything you need to see your protocol run",
-   "error": null
-  },
-  {
-   "id": "features-cards",
-   "pass": true,
-   "value": [
-    "Real-time Deck Visualization",
-    "Auto-analysis on Save",
-    "Runtime Parameters UI",
-    "Custom Labware Support",
-    "Pop-out / Aux Window",
-    "Step Jumper + Search",
-    "Multi-file Bundler"
-   ],
-   "error": null
-  }
- ],
- "finishedAt": "2026-09-23T04:11:14.474Z"
+  "feature": "features-grid",
+  "url": "http://127.0.0.1:5173/",
+  "passed": 3,
+  "total": 3,
+  "ok": true,
+  "checks": [
+    {
+      "id": "features-region",
+      "pass": true,
+      "value": true,
+      "error": null
+    },
+    {
+      "id": "features-heading",
+      "pass": true,
+      "value": "Everything you need to see your protocol run",
+      "error": null
+    },
+    {
+      "id": "features-cards",
+      "pass": true,
+      "value": [
+        "Real-time Deck Visualization",
+        "Auto-analysis on Save",
+        "Runtime Parameters UI",
+        "Custom Labware Support",
+        "Pop-out / Aux Window",
+        "Step Jumper + Search",
+        "Multi-file Bundler"
+      ],
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-09-23T04:11:14.474Z"
 }

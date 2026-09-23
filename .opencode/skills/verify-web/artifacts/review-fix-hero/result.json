@@ -1,45 +1,41 @@
 {
- "feature": "hero",
- "url": "http://127.0.0.1:5173/",
- "passed": 4,
- "total": 4,
- "ok": true,
- "checks": [
-  {
-   "id": "hero-headline",
-   "pass": true,
-   "value": "Protocol Factory",
-   "error": null
-  },
-  {
-   "id": "hero-tagline",
-   "pass": true,
-   "value": "Simulate your Opentrons Python protocols and inspect deck layout and liquid volumes in real time — without leaving VSCode.",
-   "error": null
-  },
-  {
-   "id": "hero-request-access-links",
-   "pass": true,
-   "value": {
-    "count": 3,
-    "hrefs": [
-     "https://docs.google.com/forms/d/e/1FAIpQLSee8RapmgEfDE2QQtonDNmai44tuyidFQx5A4CiPfXO7_lFgQ/viewform?usp=publish-editor",
-     "https://docs.google.com/forms/d/e/1FAIpQLSee8RapmgEfDE2QQtonDNmai44tuyidFQx5A4CiPfXO7_lFgQ/viewform?usp=publish-editor",
-     "https://docs.google.com/forms/d/e/1FAIpQLSee8RapmgEfDE2QQtonDNmai44tuyidFQx5A4CiPfXO7_lFgQ/viewform?usp=publish-editor"
-    ]
-   },
-   "error": null
-  },
-  {
-   "id": "hero-install-link",
-   "pass": true,
-   "value": [
-    "Install",
-    "Installation guide ↓",
-    "Installation guide"
-   ],
-   "error": null
-  }
- ],
- "finishedAt": "2026-09-23T04:10:48.099Z"
+  "feature": "hero",
+  "url": "http://127.0.0.1:5173/",
+  "passed": 4,
+  "total": 4,
+  "ok": true,
+  "checks": [
+    {
+      "id": "hero-headline",
+      "pass": true,
+      "value": "Protocol Factory",
+      "error": null
+    },
+    {
+      "id": "hero-tagline",
+      "pass": true,
+      "value": "Simulate your Opentrons Python protocols and inspect deck layout and liquid volumes in real time — without leaving VSCode.",
+      "error": null
+    },
+    {
+      "id": "hero-request-access-links",
+      "pass": true,
+      "value": {
+        "count": 3,
+        "hrefs": [
+          "https://docs.google.com/forms/d/e/1FAIpQLSee8RapmgEfDE2QQtonDNmai44tuyidFQx5A4CiPfXO7_lFgQ/viewform?usp=publish-editor",
+          "https://docs.google.com/forms/d/e/1FAIpQLSee8RapmgEfDE2QQtonDNmai44tuyidFQx5A4CiPfXO7_lFgQ/viewform?usp=publish-editor",
+          "https://docs.google.com/forms/d/e/1FAIpQLSee8RapmgEfDE2QQtonDNmai44tuyidFQx5A4CiPfXO7_lFgQ/viewform?usp=publish-editor"
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "hero-install-link",
+      "pass": true,
+      "value": ["Install", "Installation guide ↓", "Installation guide"],
+      "error": null
+    }
+  ],
+  "finishedAt": "2026-09-23T04:10:48.099Z"
 }
