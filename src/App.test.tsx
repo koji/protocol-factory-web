@@ -6,7 +6,7 @@ describe('App', () => {
   it('renders every section of the landing page', () => {
     render(<App />)
     expect(
-      screen.getByRole('heading', { level: 1, name: 'Protocol Visualizer' }),
+      screen.getByRole('heading', { level: 1, name: 'Protocol Factory' }),
     ).toBeInTheDocument()
     expect(screen.getByLabelText('Features')).toBeInTheDocument()
     expect(screen.getByLabelText('Screenshot')).toBeInTheDocument()

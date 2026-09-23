@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// verify.mjs — one-shot end-to-end verification for protocol-visualizer-web.
+// verify.mjs — one-shot end-to-end verification for protocol-factory-web.
 // Spawns its own `vite` server as a child process (same process tree, so no
 // cross-shell lifetime issues), runs doctor, drives the requested features in
 // real Chromium, then always tears the server down. Proof artifacts survive.

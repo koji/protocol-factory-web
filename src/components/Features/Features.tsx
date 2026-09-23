@@ -20,22 +20,27 @@ export const FEATURES: Feature[] = [
   {
     title: 'Runtime Parameters UI',
     description:
-      'Input fields are generated for Opentrons Runtime Parameters; hit Analyze to apply them — your original code is never modified.',
+      'Input fields are generated for Runtime Parameters, with a guard that blocks analysis on unstaged csv_file params, in English and Japanese — your original code is never modified.',
   },
   {
     title: 'Custom Labware Support',
     description:
-      'Place custom labware definition files (.json) in the same directory as your protocol file and they just work.',
+      'Place sibling custom labware definition files (.json) next to your protocol file and they just work.',
   },
   {
-    title: 'Pop-out Window',
+    title: 'Pop-out / Aux Window',
     description:
       "Pop the panel out to its own window or drag the tab to another monitor via VSCode's Auxiliary Window support.",
   },
   {
-    title: 'Step Jumper',
+    title: 'Step Jumper + Search',
     description:
-      'Enter any step number under Protocol Steps and hit Enter to jump the visualization state instantly.',
+      'Enter any step number under Protocol Steps and hit Enter to jump the visualization state instantly, with step search to land fast.',
+  },
+  {
+    title: 'Multi-file Bundler',
+    description:
+      'Bundle from helpers import x into <name>.bundled.py with a line map via the Protocol Factory: Bundle Protocol command.',
   },
 ]
 

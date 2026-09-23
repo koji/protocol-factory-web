@@ -1,6 +1,6 @@
 # AI workflow
 
-AI workflow shows how `protocol-fix-loop` connects Protocol Visualizer to an LLM: an intro paragraph naming GitHub Copilot and Cursor, a demo video, and a four-step `How to use` list with the skill install command and the `/protocol-fix-loop` chat command.
+AI workflow shows how `protocol-fix-loop` connects Protocol Factory to an LLM: an intro paragraph naming GitHub Copilot and Cursor, a demo video, and a four-step `How to use` list with the skill install command and the `/protocol-fix-loop` chat command.
 
 ## Sub-features
 
@@ -11,7 +11,7 @@ AI workflow shows how `protocol-fix-loop` connects Protocol Visualizer to an LLM
 
 ## How to get to it (user POV)
 
-- Scroll to `Generate protocols with AI, verify with Protocol Visualizer` on `/` (between the features grid and the screenshot).
+- Scroll to `Generate protocols with AI, verify with Protocol Factory` on `/` (between the features grid and the screenshot).
 - Choose the `protocol-fix-loop` link to open `https://github.com/koji/protocol-fix-loop` in a new tab.
 - Choose the `Installation guide` link in step 3 to jump to `#install`.
 

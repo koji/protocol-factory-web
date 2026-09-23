@@ -1,4 +1,4 @@
-# Setup Protocol Vizualizer
+# Setup Protocol Factory
 
 ## 1. Prerequisites
 
@@ -12,7 +12,7 @@ pip install opentrons
 ```
 
 **Note:**
-If you need to use Protocol Vizualizer with an OT-2, you will need to use opentrons==9.0.0 pacakge since opentrons 9.1.0+ is not compatible with OT-2.
+If you need to use Protocol Factory with an OT-2, you will need to use opentrons==9.0.0 package since opentrons 9.1.0+ is not compatible with OT-2.
 
 ```bash
 pip install opentrons==9.0.0
@@ -20,7 +20,7 @@ pip install opentrons==9.0.0
 
 ## 2. Installation (from `.vsix`)
 
-Download `protocol-viz-x.x.x.vsix` from GitHub Releases or another source, then install it in VSCode using one of the following methods.
+Download `protocol-factory-0.2.9-alpha.vsix` from GitHub Releases or another source, then install it in VSCode using one of the following methods.
 
 **Method A: From the Command Palette**
 
@@ -31,5 +31,5 @@ Download `protocol-viz-x.x.x.vsix` from GitHub Releases or another source, then 
 **Method B: From the CLI**
 
 ```bash
-code --install-extension protocol-viz-0.1.5.vsix
+code --install-extension protocol-factory-0.2.9-alpha.vsix
 ```

@@ -6,7 +6,7 @@ describe('Hero', () => {
   it('renders the product headline', () => {
     render(<Hero />)
     expect(
-      screen.getByRole('heading', { level: 1, name: 'Protocol Visualizer' }),
+      screen.getByRole('heading', { level: 1, name: 'Protocol Factory' }),
     ).toBeInTheDocument()
   })
 

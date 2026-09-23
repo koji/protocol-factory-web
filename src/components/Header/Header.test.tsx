@@ -8,7 +8,7 @@ const setup = (theme: 'dark' | 'light' = 'dark') =>
 describe('Header', () => {
   it('links the brand back to top of page', () => {
     setup()
-    const brand = screen.getByRole('link', { name: 'Protocol Visualizer' })
+    const brand = screen.getByRole('link', { name: 'Protocol Factory' })
     expect(brand).toHaveAttribute('href', '#top')
   })
 

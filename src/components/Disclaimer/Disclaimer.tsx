@@ -19,8 +19,8 @@ export function Disclaimer(): ReactNode {
           <path d="M12 8v5M12 16.5v.01" />
         </svg>
         <p className={styles.text}>
-          Protocol Visualizer is an independent project and is not affiliated
-          with or endorsed by Opentrons.
+          Protocol Factory is an independent project and is not affiliated with
+          or endorsed by Opentrons.
         </p>
       </div>
     </aside>

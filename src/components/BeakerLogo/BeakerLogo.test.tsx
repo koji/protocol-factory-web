@@ -4,10 +4,8 @@ import { BeakerLogo } from './BeakerLogo'
 
 describe('BeakerLogo', () => {
   it('exposes an accessible name when a label is given', () => {
-    const { getByRole } = render(<BeakerLogo label="Protocol Visualizer" />)
-    expect(
-      getByRole('img', { name: 'Protocol Visualizer' }),
-    ).toBeInTheDocument()
+    const { getByRole } = render(<BeakerLogo label="Protocol Factory" />)
+    expect(getByRole('img', { name: 'Protocol Factory' })).toBeInTheDocument()
   })
 
   it('is hidden from assistive tech when no label is given', () => {

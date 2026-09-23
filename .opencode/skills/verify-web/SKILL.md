@@ -1,9 +1,9 @@
 ---
 name: verify-web
-description: Drive and prove the protocol-visualizer-web landing page (Vite + React static marketing site) in real headless Chromium. Use when verifying any user-facing behavior of the site — hero, feature cards, AI workflow section, theme toggle, install guide — or after changing components under src/.
+description: Drive and prove the protocol-factory-web landing page (Vite + React static marketing site) in real headless Chromium. Use when verifying any user-facing behavior of the site — hero, feature cards, AI workflow section, theme toggle, install guide — or after changing components under src/.
 ---
 
-# Verify protocol-visualizer-web
+# Verify protocol-factory-web
 
 This skill drives the real landing page the way a user sees it: a local `vite`
 dev server plus headless Chromium over CDP. No mocks, no test-only endpoints —

@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// drive.mjs — drive the real protocol-visualizer-web landing page in headless
+// drive.mjs — drive the real protocol-factory-web landing page in headless
 // Chromium over CDP (no npm dependencies; uses bun built-ins only).
 //
 // Usage:
@@ -27,8 +27,9 @@ const EXPECTED_FEATURE_TITLES = [
   'Auto-analysis on Save',
   'Runtime Parameters UI',
   'Custom Labware Support',
-  'Pop-out Window',
-  'Step Jumper',
+  'Pop-out / Aux Window',
+  'Step Jumper + Search',
+  'Multi-file Bundler',
 ]
 
 const AI_VIDEO =
@@ -171,7 +172,7 @@ const CHECKS = {
     {
       id: 'hero-headline',
       expr: `document.querySelector('#root h1')?.textContent ?? null`,
-      want: 'Protocol Visualizer',
+      want: 'Protocol Factory',
     },
     {
       id: 'hero-tagline',
@@ -208,7 +209,7 @@ const CHECKS = {
       expr: `[...document.querySelectorAll('section#features article')].map(a => a.querySelector('h3')?.textContent ?? '')`,
       check: (v) =>
         Array.isArray(v) &&
-        v.length === 6 &&
+        v.length === 7 &&
         EXPECTED_FEATURE_TITLES.every((t) => v.includes(t)),
     },
   ],
@@ -296,7 +297,7 @@ const CHECKS = {
     },
     {
       id: 'install-cli-method',
-      expr: `document.querySelector('section#install')?.textContent.includes('code --install-extension protocol-visualizer.vsix') ?? false`,
+      expr: `document.querySelector('section#install')?.textContent.includes('code --install-extension protocol-factory-0.2.9-alpha.vsix') ?? false`,
       want: true,
     },
     {

@@ -1,6 +1,6 @@
 # Hero
 
-Hero is the first screen: the `Protocol Visualizer` headline with `Preview` badge, the Opentrons tagline, `Request access` buttons, and a link down to the installation guide.
+Hero is the first screen: the `Protocol Factory` headline with `Preview` badge, the Opentrons tagline, `Request access` buttons, and a link down to the installation guide.
 
 ## Sub-features
 
@@ -22,7 +22,7 @@ Preconditions:
 - Doctor reports `"ok": true` at the run URL.
 - Fresh page load; no prior interaction.
 
-- **Headline.** Load the page. Run `bun .opencode/skills/verify-web/scripts/drive.mjs --url http://127.0.0.1:5173/ --feature hero --out <dir>`. The `h1` reads `Protocol Visualizer`.
+- **Headline.** Load the page. Run `bun .opencode/skills/verify-web/scripts/drive.mjs --url http://127.0.0.1:5173/ --feature hero --out <dir>`. The `h1` reads `Protocol Factory`.
 - **Tagline.** Read the hero paragraph. The same run asserts it contains `Simulate your Opentrons`.
 - **Request access.** Count the access links. The run asserts at least 3 links named `Request access` and every one targets `docs.google.com/forms`.
 - **Install jump.** Follow `Installation guide ↓`. The run asserts one of the `#install` links (header nav also uses that href) reads `Installation guide`.

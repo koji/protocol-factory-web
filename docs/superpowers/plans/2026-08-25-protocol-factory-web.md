@@ -1,14 +1,14 @@
-# Protocol Visualizer Website Implementation Plan
+# Protocol Factory Website Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Build a single-page product landing site for the Protocol Visualizer VSCode extension with direct `.vsix` download.
+**Goal:** Build a single-page product landing site for the Protocol Factory VSCode extension with direct `.vsix` download.
 
 **Architecture:** Static single-page React app, no router, no state library (theme state only). Sections are stacked components; theming uses CSS custom properties driven by `data-theme` on `<html>`.
 
 **Tech Stack:** TypeScript (strict), React 19, Vite, CSS Modules, Vitest + React Testing Library + jsdom, ESLint 9 flat config, Prettier, npm on Node v24.17.0.
 
-**Spec:** `docs/superpowers/specs/2026-08-25-protocol-visualizer-website-design.md`
+**Spec:** `docs/superpowers/specs/2026-08-25-protocol-factory-web-design.md`
 
 ## Global Constraints
 
@@ -20,10 +20,10 @@
 - Vite `base: './'`.
 - Accent cyan/teal: dark `--color-accent: #22d3ee`, light `--color-accent: #0891b2`; text on accent keeps AA contrast.
 - Container max-width 1120px; breakpoints 768px and 1024px; mobile-first CSS.
-- VSIX lives at fixed path `public/downloads/protocol-visualizer.vsix` (overwritten per release, never renamed).
+- VSIX lives at fixed path `public/downloads/protocol-factory-0.2.9-alpha.vsix` (overwritten per release, never renamed).
 - CTA disabled + "Coming soon" until `site.download.available` flips to `true`.
 - All color/spacing values come from CSS variables defined in `src/styles/tokens.css`.
-- Every command below runs from the repo root `protocol-visualizer-website/`.
+- Every command below runs from the repo root `protocol-factory-web/`.
 
 ---
 
@@ -53,7 +53,7 @@
 
 ```json
 {
-  "name": "protocol-visualizer-website",
+  "name": "protocol-factory-web",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -175,7 +175,7 @@ dist/
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Protocol Visualizer</title>
+    <title>Protocol Factory</title>
   </head>
   <body>
     <div id="root"></div>
@@ -210,7 +210,7 @@ import type { ReactNode } from 'react'
 export default function App(): ReactNode {
   return (
     <div id="top">
-      <main>Protocol Visualizer</main>
+      <main>Protocol Factory</main>
     </div>
   )
 }
@@ -226,7 +226,7 @@ import App from './App'
 describe('App', () => {
   it('renders the product name', () => {
     render(<App />)
-    expect(screen.getByText('Protocol Visualizer')).toBeInTheDocument()
+    expect(screen.getByText('Protocol Factory')).toBeInTheDocument()
   })
 })
 ```
@@ -687,7 +687,7 @@ export default function App(): ReactNode {
   return (
     <div id="top">
       <main>
-        Protocol Visualizer
+        Protocol Factory
         <button type="button" onClick={toggleTheme}>
           toggle ({theme})
         </button>
@@ -744,14 +744,14 @@ Create `src/config/site.ts`:
 
 ```ts
 export const site = {
-  productName: 'Protocol Visualizer',
+  productName: 'Protocol Factory',
   tagline:
     'Simulate your Opentrons Python protocols and inspect deck layout and liquid volumes in real time — without leaving VSCode.',
   download: {
     available: false,
     label: 'Download .vsix',
     comingSoonLabel: 'Coming soon',
-    href: './downloads/protocol-visualizer.vsix',
+    href: './downloads/protocol-factory-0.2.9-alpha.vsix',
   },
 } as const
 ```
@@ -813,7 +813,10 @@ describe('DownloadButton (VSIX published)', () => {
   it('renders a download link to the fixed vsix path', () => {
     render(<DownloadButton />)
     const link = screen.getByRole('link', { name: /Download \.vsix/i })
-    expect(link).toHaveAttribute('href', './downloads/protocol-visualizer.vsix')
+    expect(link).toHaveAttribute(
+      'href',
+      './downloads/protocol-factory-0.2.9-alpha.vsix',
+    )
     expect(link).toHaveAttribute('download')
   })
 })
@@ -922,10 +925,8 @@ import { BeakerLogo } from './BeakerLogo'
 
 describe('BeakerLogo', () => {
   it('exposes an accessible name when a label is given', () => {
-    const { getByRole } = render(<BeakerLogo label="Protocol Visualizer" />)
-    expect(
-      getByRole('img', { name: 'Protocol Visualizer' }),
-    ).toBeInTheDocument()
+    const { getByRole } = render(<BeakerLogo label="Protocol Factory" />)
+    expect(getByRole('img', { name: 'Protocol Factory' })).toBeInTheDocument()
   })
 
   it('is hidden from assistive tech when no label is given', () => {
@@ -1007,7 +1008,7 @@ const setup = (theme: 'dark' | 'light' = 'dark') =>
 describe('Header', () => {
   it('links the brand back to top of page', () => {
     setup()
-    const brand = screen.getByRole('link', { name: 'Protocol Visualizer' })
+    const brand = screen.getByRole('link', { name: 'Protocol Factory' })
     expect(brand).toHaveAttribute('href', '#top')
   })
 
@@ -1173,7 +1174,7 @@ export default function App(): ReactNode {
   return (
     <div id="top">
       <Header theme={theme} onToggleTheme={toggleTheme} />
-      <main>Protocol Visualizer</main>
+      <main>Protocol Factory</main>
     </div>
   )
 }
@@ -1233,7 +1234,7 @@ describe('Hero', () => {
   it('renders the product headline', () => {
     render(<Hero />)
     expect(
-      screen.getByRole('heading', { level: 1, name: 'Protocol Visualizer' }),
+      screen.getByRole('heading', { level: 1, name: 'Protocol Factory' }),
     ).toBeInTheDocument()
   })
 
@@ -1653,7 +1654,7 @@ describe('Screenshot', () => {
     render(<Screenshot />)
     expect(
       screen.getByRole('img', {
-        name: /Protocol Visualizer screenshot placeholder/i,
+        name: /Protocol Factory screenshot placeholder/i,
       }),
     ).toBeInTheDocument()
     expect(
@@ -1684,7 +1685,7 @@ export function Screenshot(): ReactNode {
         <figure className={styles.figure}>
           <div
             role="img"
-            aria-label="Protocol Visualizer screenshot placeholder"
+            aria-label="Protocol Factory screenshot placeholder"
             className={styles.placeholder}
           >
             <BeakerLogo className={styles.beaker} />
@@ -1808,7 +1809,7 @@ describe('Install', () => {
     const methodB = screen.getByLabelText('Method B: Command line')
     expect(
       within(methodB).getByText(
-        'code --install-extension protocol-visualizer.vsix',
+        'code --install-extension protocol-factory-0.2.9-alpha.vsix',
       ),
     ).toBeInTheDocument()
   })
@@ -1887,7 +1888,9 @@ export function Install(): ReactNode {
           <div className={styles.block} aria-label="Method B: Command line">
             <h3 className={styles.subHeading}>Method B: Command line</h3>
             <pre className={styles.codeBlock}>
-              <code>code --install-extension protocol-visualizer.vsix</code>
+              <code>
+                code --install-extension protocol-factory-0.2.9-alpha.vsix
+              </code>
             </pre>
           </div>
         </div>
@@ -2218,7 +2221,7 @@ git commit -m "feat: add footer with config-driven external links"
     />
     <meta
       property="og:title"
-      content="Protocol Visualizer — Simulate Opentrons protocols in VSCode"
+      content="Protocol Factory — Simulate Opentrons protocols in VSCode"
     />
     <meta
       property="og:description"
@@ -2227,7 +2230,7 @@ git commit -m "feat: add footer with config-driven external links"
     <meta property="og:type" content="website" />
     <!-- og:image intentionally omitted until a real screenshot exists -->
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <title>Protocol Visualizer — Simulate Opentrons protocols in VSCode</title>
+    <title>Protocol Factory — Simulate Opentrons protocols in VSCode</title>
     <script>
       ;(function () {
         var t
@@ -2275,7 +2278,7 @@ describe('App', () => {
   it('renders every section of the landing page', () => {
     render(<App />)
     expect(
-      screen.getByRole('heading', { level: 1, name: 'Protocol Visualizer' }),
+      screen.getByRole('heading', { level: 1, name: 'Protocol Factory' }),
     ).toBeInTheDocument()
     expect(screen.getByLabelText('Features')).toBeInTheDocument()
     expect(screen.getByLabelText('Screenshot')).toBeInTheDocument()
@@ -2312,7 +2315,7 @@ git commit -m "feat: finalize page metadata, favicon and integration checks"
 
 ## Release Checklist (when the real .vsix arrives)
 
-1. Copy the extension build output to `public/downloads/protocol-visualizer.vsix` (fixed name, overwrite).
+1. Copy the extension build output to `public/downloads/protocol-factory-0.2.9-alpha.vsix` (fixed name, overwrite).
 2. In `src/config/site.ts` set `download.available: true`.
 3. Optionally drop a real screenshot into the Screenshot section (replace placeholder markup).
 4. Add the public repo URL to `externalLinks` in `src/config/links.ts`.

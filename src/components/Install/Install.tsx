@@ -60,7 +60,9 @@ export function Install(): ReactNode {
           <div className={styles.block} aria-label="Method B: Command line">
             <h3 className={styles.subHeading}>Method B: Command line</h3>
             <pre className={styles.codeBlock}>
-              <code>code --install-extension protocol-visualizer.vsix</code>
+              <code>
+                code --install-extension protocol-factory-0.2.9-alpha.vsix
+              </code>
             </pre>
           </div>
         </div>

@@ -1,4 +1,4 @@
-# Protocol Visualizer VSCode Extension
+# Protocol Factory VSCode Extension
 
 A VSCode extension (prototype) for simulating Opentrons Python protocols directly in VSCode and visualizing and inspecting the state of the Deck (work surface) and liquid volume changes in real time through a Webview panel.
 
@@ -44,11 +44,11 @@ pip install opentrons
 ## 2. Usage
 
 1. Open an Opentrons protocol `.py` file in VSCode.
-2. Start Protocol Visualizer. Currently, there are 3 ways to start it:
-3. From the Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`), run **`Opentrons: Open Protocol Visualizer`**.
+2. Start Protocol Factory. Currently, there are 3 ways to start it:
+3. From the Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`), run **`Protocol Factory: Open`**.
 4. Click the **beaker** icon in the status bar.
 5. Set a new shortcut via Command Pallets `Open Keyboard Shortcuts` and start it with your custom shortcut.
-6. When the Visualizer panel opens on the right side of the screen, and `If your protocol uses Runtime parameters`, Protocol Visualizer will generate UI inputs for these parameters.
+6. When the Factory panel opens on the right side of the screen, and `If your protocol uses Runtime parameters`, Protocol Factory will generate UI inputs for these parameters.
 
 `Once the analysis is complete, you are ready to edit your protocol.`
 
@@ -58,15 +58,15 @@ This extension supports custom labware definitions. You need to place your custo
 
 ### 2-2 Auto-analysis
 
-Protocol Visualizer starts analysis automatically when you save changes to your protocol file.
+Protocol Factory starts analysis automatically when you save changes to your protocol file.
 
 ### 2-3 Pop out button
 
-This extension is using VSCode's Auxiliary Window, so you can pop out the Visualizer panel to a separate window. Also you can do the same thing with dragging the Protocol Visualizer tab to somewhere of your screen.
+This extension is using VSCode's Auxiliary Window, so you can pop out the Factory panel to a separate window. Also you can do the same thing with dragging the Protocol Factory tab to somewhere of your screen.
 
 ### 2-4 Runtime parameters
 
-For Runtime parameters, you will need to click `Analyze` button to apply your changes to your protocol. `If you change a Runtime parameter, Protocol Visualizer will not change your protocol.`
+For Runtime parameters, you will need to click `Analyze` button to apply your changes to your protocol. `If you change a Runtime parameter, Protocol Factory will not change your protocol.`
 Runtime parameters function creates a temporary protocol file that applyes your changes as a default parameter value for the analysis and it will be removed whne the visualization is done.
 
 ### 2-5 Step Jumper
