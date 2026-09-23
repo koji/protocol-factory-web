@@ -40,7 +40,7 @@ export const FEATURES: Feature[] = [
   {
     title: 'Multi-file Bundler',
     description:
-      'Bundle `from helpers import x` into `<name>.bundled.py` with a line map via the `Protocol Factory: Bundle Protocol` command.',
+      'Bundle from helpers import x into <name>.bundled.py with a line map via the Protocol Factory: Bundle Protocol command.',
   },
 ]
 
