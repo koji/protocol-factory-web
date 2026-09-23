@@ -12,7 +12,7 @@ pip install opentrons
 ```
 
 **Note:**
-If you need to use Protocol Factory with an OT-2, you will need to use opentrons==9.0.0 pacakge since opentrons 9.1.0+ is not compatible with OT-2.
+If you need to use Protocol Factory with an OT-2, you will need to use opentrons==9.0.0 package since opentrons 9.1.0+ is not compatible with OT-2.
 
 ```bash
 pip install opentrons==9.0.0
