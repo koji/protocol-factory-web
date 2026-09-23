@@ -35,7 +35,7 @@ describe('Install', () => {
     const methodB = screen.getByLabelText('Method B: Command line')
     expect(
       within(methodB).getByText(
-        'code --install-extension protocol-visualizer.vsix',
+        'code --install-extension protocol-factory-0.2.9-alpha.vsix',
       ),
     ).toBeInTheDocument()
   })

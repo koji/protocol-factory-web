@@ -3,10 +3,10 @@ import { describe, expect, it } from 'vitest'
 import { FEATURES, Features } from './Features'
 
 describe('Features', () => {
-  it('renders six feature cards', () => {
+  it('renders seven feature cards', () => {
     render(<Features />)
     expect(screen.getAllByRole('article')).toHaveLength(FEATURES.length)
-    expect(FEATURES).toHaveLength(6)
+    expect(FEATURES).toHaveLength(7)
   })
 
   it('renders each feature title and description', () => {
