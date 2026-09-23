@@ -1,11 +1,11 @@
-# Protocol Visualizer Website — Design Document
+# Protocol Factory Website — Design Document
 
 Date: 2026-08-25
 Status: Approved
 
 ## Overview
 
-A single-page product landing website introducing the **Protocol Visualizer** VSCode extension — a prototype extension that simulates Opentrons Python protocols in VSCode and visualizes deck state and liquid volume changes in real time via a Webview panel.
+A single-page product landing website introducing the **Protocol Factory** VSCode extension — a prototype extension that simulates Opentrons Python protocols in VSCode and visualizes deck state and liquid volume changes in real time via a Webview panel.
 
 The primary goal is to convince Opentrons protocol authors to install the extension by downloading the `.vsix` directly from this site.
 
@@ -19,11 +19,11 @@ The primary goal is to convince Opentrons protocol authors to install the extens
 | Tech stack       | TypeScript, React 19, Vite, CSS Modules                                                                  |
 | Theme            | Dark & light with toggle; initial = OS `prefers-color-scheme`, manual choice persisted in `localStorage` |
 | Accent color     | Cyan / teal family (dark: ~`#22d3ee`, light: ~`#0e7490`), AA contrast on both themes                     |
-| Download CTA     | Direct download of `.vsix` hosted on this site (`public/downloads/protocol-visualizer.vsix`)             |
+| Download CTA     | Direct download of `.vsix` hosted on this site (`public/downloads/protocol-factory-0.2.9-alpha.vsix`)             |
 | Until VSIX ready | Button disabled with "Coming soon" label, driven by a single config flag                                 |
 | VSIX naming      | Fixed filename, overwritten each release; no site edits needed per release                               |
 | Deployment       | Undecided → build with `base: './'` so output works anywhere                                             |
-| Product name     | "Protocol Visualizer"                                                                                    |
+| Product name     | "Protocol Factory"                                                                                    |
 | GitHub links     | Repository will be public in the future; link config hides empty URLs                                    |
 | Logo / favicon   | Original simple beaker SVG using `currentColor`; doubles as favicon                                      |
 | Animation        | Subtle CSS transitions only (hover, hero fade); no animation libraries                                   |
@@ -40,7 +40,7 @@ Erratum (2026-08-25): light accent adjusted from #0891b2 to #0e7490 — original
 ## Page Structure (top to bottom)
 
 1. **Header** (sticky) — beaker SVG logo + `Features` / `Install` anchor links + Download button + theme toggle. Anchors hidden on mobile.
-2. **Hero** — headline "Protocol Visualizer", tagline, primary CTA (`Download .vsix` / disabled: `Coming soon`), secondary anchor link to Installation guide, beaker SVG graphic.
+2. **Hero** — headline "Protocol Factory", tagline, primary CTA (`Download .vsix` / disabled: `Coming soon`), secondary anchor link to Installation guide, beaker SVG graphic.
 3. **Features** — 6 cards:
    - Real-time Deck Visualization
    - Auto-analysis on Save
@@ -49,12 +49,12 @@ Erratum (2026-08-25): light accent adjusted from #0891b2 to #0e7490 — original
    - Pop-out Window (VSCode Auxiliary Window)
    - Step Jumper
 4. **Screenshot** — placeholder region for extension UI capture (16:9), structured for easy replacement.
-5. **Install** — prerequisites (Python 3.8+, `pip install opentrons`, note `opentrons==9.0.0` for OT-2), two install methods (Command Palette `Extensions: Install from VSIX...` / CLI `code --install-extension protocol-visualizer.vsix`), repeated download button.
+5. **Install** — prerequisites (Python 3.8+, `pip install opentrons`, note `opentrons==9.0.0` for OT-2), two install methods (Command Palette `Extensions: Install from VSIX...` / CLI `code --install-extension protocol-factory-0.2.9-alpha.vsix`), repeated download button.
 6. **Footer** — `MIT License © 2026 Koji Kanao` + config-driven links (hidden while URL empty).
 
 ## Copy
 
-- `<title>`: `Protocol Visualizer — Simulate Opentrons protocols in VSCode`
+- `<title>`: `Protocol Factory — Simulate Opentrons protocols in VSCode`
 - meta description: `A VSCode extension that simulates Opentrons Python protocols and visualizes deck state and liquid volumes in real time.`
 - Hero tagline: `Simulate your Opentrons Python protocols and inspect deck layout and liquid volumes in real time — without leaving VSCode.`
 - Feature card copy (title + description):
@@ -64,17 +64,17 @@ Erratum (2026-08-25): light accent adjusted from #0891b2 to #0e7490 — original
   4. **Custom Labware Support** — Place custom labware JSON definitions next to your protocol file and they just work.
   5. **Pop-out Window** — Detach the visualizer to a separate window via VSCode's Auxiliary Window support.
   6. **Step Jumper** — Jump straight to any protocol step by number from the Protocol Steps panel.
-- Install copy follows `docs/Instllation.md` content adapted for web.
+- Install copy follows `docs/Installation.md` content adapted for web.
 
 ## Architecture
 
 ```
-protocol-visualizer-website/
+protocol-factory-web/
 ├── index.html              # meta tags (OG included), favicon, pre-React theme script
 ├── vite.config.ts          # base: './'
 ├── public/
 │   └── downloads/
-│       └── protocol-visualizer.vsix   # fixed name; not present until ready
+│       └── protocol-factory-0.2.9-alpha.vsix   # fixed name; not present until ready
 └── src/
     ├── main.tsx            # entry
     ├── App.tsx             # stacks sections + theme state
@@ -110,7 +110,7 @@ protocol-visualizer-website/
 ## Error Handling
 
 - Static site; runtime error handling limited to guarded `localStorage`.
-- Disabled CTA eliminates 404 risk while the `.vsix` is absent. Enabling the download requires placing the file at `public/downloads/protocol-visualizer.vsix` and flipping the flag (release checklist).
+- Disabled CTA eliminates 404 risk while the `.vsix` is absent. Enabling the download requires placing the file at `public/downloads/protocol-factory-0.2.9-alpha.vsix` and flipping the flag (release checklist).
 
 ## Out of Scope
 
