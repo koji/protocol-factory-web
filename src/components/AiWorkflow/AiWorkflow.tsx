@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import styles from './AiWorkflow.module.css'
 
 const DEMO_VIDEO =
@@ -7,6 +7,9 @@ const SKILL_REPO = 'https://github.com/koji/protocol-fix-loop'
 const SKILL_INSTALL_COMMAND = 'npx skills add koji/protocol-fix-loop'
 
 export function AiWorkflow(): ReactNode {
+  const [videoReady, setVideoReady] = useState(false)
+  const handleVideoReady = () => setVideoReady(true)
+
   return (
     <section
       id="ai-workflow"
@@ -32,15 +35,28 @@ export function AiWorkflow(): ReactNode {
         </p>
 
         <figure className={styles.figure}>
-          <video
-            className={styles.video}
-            src={DEMO_VIDEO}
-            controls
-            preload="metadata"
-            aria-label="Demo video of generating and fixing a protocol with protocol-fix-loop and Protocol Factory"
-          >
-            Your browser does not support the video tag.
-          </video>
+          <div className={styles.videoFrame}>
+            {!videoReady && (
+              <div
+                className={styles.videoLoader}
+                role="status"
+                aria-label="Loading demo video"
+              >
+                <div className={styles.spinner} aria-hidden="true" />
+              </div>
+            )}
+            <video
+              className={`${styles.video} ${videoReady ? styles.videoReady : ''}`}
+              src={DEMO_VIDEO}
+              controls
+              preload="metadata"
+              onCanPlay={handleVideoReady}
+              onLoadedMetadata={handleVideoReady}
+              aria-label="Demo video of generating and fixing a protocol with protocol-fix-loop and Protocol Factory"
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
           <figcaption className={styles.caption}>
             Generate a protocol from a prompt, then fix it while watching the
             simulation

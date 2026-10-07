@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import { AiWorkflow } from './AiWorkflow'
 
@@ -35,5 +35,18 @@ describe('AiWorkflow', () => {
     ).toBeInTheDocument()
     expect(screen.getByText('/protocol-fix-loop')).toBeInTheDocument()
     expect(screen.getByText(/Install VSCode or Cursor/i)).toBeInTheDocument()
+  })
+
+  it('shows a loading indicator until the video is ready', () => {
+    render(<AiWorkflow />)
+    const video = document.querySelector('video')
+    expect(video).not.toBeNull()
+    expect(
+      screen.getByRole('status', { name: 'Loading demo video' }),
+    ).toBeInTheDocument()
+    fireEvent(video!, new Event('canplay'))
+    expect(
+      screen.queryByRole('status', { name: 'Loading demo video' }),
+    ).not.toBeInTheDocument()
   })
 })
