@@ -28,14 +28,14 @@ describe('Install', () => {
 
   it('explains both install methods', () => {
     render(<Install />)
-    const methodA = screen.getByLabelText('Method A: Command Palette')
+    const methodA = screen.getByLabelText('Method A: Extensions view')
     expect(
-      within(methodA).getByText('Extensions: Install from VSIX...'),
+      within(methodA).getByText('Install from VSIX...'),
     ).toBeInTheDocument()
     const methodB = screen.getByLabelText('Method B: Command line')
     expect(
       within(methodB).getByText(
-        'code --install-extension protocol-factory-0.2.9-alpha.vsix',
+        'code --install-extension protocol-factory-0.2.10-alpha.vsix',
       ),
     ).toBeInTheDocument()
   })
