@@ -41,15 +41,16 @@ export function Install(): ReactNode {
             </ul>
           </div>
 
-          <div className={styles.block} aria-label="Method A: Command Palette">
-            <h3 className={styles.subHeading}>Method A: Command Palette</h3>
+          <div className={styles.block} aria-label="Method A: Extensions view">
+            <h3 className={styles.subHeading}>Method A: Extensions view</h3>
             <ol className={styles.list}>
               <li>
-                Open the Command Palette (<kbd>Cmd+Shift+P</kbd> /{' '}
-                <kbd>Ctrl+Shift+P</kbd>)
+                Open the Extensions tab (<kbd>Cmd+Shift+X</kbd> /{' '}
+                <kbd>Ctrl+Shift+X</kbd>)
               </li>
               <li>
-                Select <code>Extensions: Install from VSIX...</code>
+                Click the <code>…</code> menu at the top-right, then choose{' '}
+                <code>Install from VSIX...</code>
               </li>
               <li>
                 Choose the downloaded <code>.vsix</code> file
@@ -61,7 +62,7 @@ export function Install(): ReactNode {
             <h3 className={styles.subHeading}>Method B: Command line</h3>
             <pre className={styles.codeBlock}>
               <code>
-                code --install-extension protocol-factory-0.2.9-alpha.vsix
+                code --install-extension protocol-factory-0.2.10-alpha.vsix
               </code>
             </pre>
           </div>
