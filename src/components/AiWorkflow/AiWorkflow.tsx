@@ -1,8 +1,7 @@
 import { useState, type ReactNode } from 'react'
 import styles from './AiWorkflow.module.css'
 
-const DEMO_VIDEO =
-  'https://github.com/user-attachments/assets/812fbcdf-a84a-49fd-b631-ae925b64dddf'
+const DEMO_VIDEO = '/videos/protocol-factory-hero.mp4'
 const SKILL_REPO = 'https://github.com/koji/protocol-fix-loop'
 const SKILL_INSTALL_COMMAND = 'npx skills add koji/protocol-fix-loop'
 
@@ -60,6 +59,9 @@ export function AiWorkflow(): ReactNode {
           <figcaption className={styles.caption}>
             Generate a protocol from a prompt, then fix it while watching the
             simulation
+            <span className={styles.credit}>
+              Music: Kevin MacLeod (incompetech.com) — CC BY 4.0
+            </span>
           </figcaption>
         </figure>
 

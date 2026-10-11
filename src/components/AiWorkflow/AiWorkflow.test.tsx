@@ -27,9 +27,7 @@ describe('AiWorkflow', () => {
     render(<AiWorkflow />)
     const video = document.querySelector('video')
     expect(video).not.toBeNull()
-    expect(video?.getAttribute('src')).toBe(
-      'https://github.com/user-attachments/assets/812fbcdf-a84a-49fd-b631-ae925b64dddf',
-    )
+    expect(video?.getAttribute('src')).toBe('/videos/protocol-factory-hero.mp4')
     expect(
       screen.getByText('npx skills add koji/protocol-fix-loop'),
     ).toBeInTheDocument()

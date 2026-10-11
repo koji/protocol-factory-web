@@ -1,5 +1,7 @@
-import type { ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import styles from './Features.module.css'
+
+const PARAMS_VIDEO = '/videos/protocol-factory-runtime-params.mp4'
 
 export interface Feature {
   title: string
@@ -45,6 +47,9 @@ export const FEATURES: Feature[] = [
 ]
 
 export function Features(): ReactNode {
+  const [videoReady, setVideoReady] = useState(false)
+  const handleVideoReady = () => setVideoReady(true)
+
   return (
     <section id="features" className={styles.section} aria-label="Features">
       <div className="container">
@@ -61,6 +66,37 @@ export function Features(): ReactNode {
             </li>
           ))}
         </ul>
+        <figure className={styles.demoFigure}>
+          <div className={styles.videoFrame}>
+            {!videoReady && (
+              <div
+                className={styles.videoLoader}
+                role="status"
+                aria-label="Loading demo video"
+              >
+                <div className={styles.spinner} aria-hidden="true" />
+              </div>
+            )}
+            <video
+              className={`${styles.video} ${videoReady ? styles.videoReady : ''}`}
+              src={PARAMS_VIDEO}
+              controls
+              preload="metadata"
+              onCanPlay={handleVideoReady}
+              onLoadedMetadata={handleVideoReady}
+              aria-label="Demo video of tweaking runtime parameters in Protocol Factory"
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <figcaption className={styles.caption}>
+            Tweak runtime parameters and watch the simulation update — no code
+            changes needed
+            <span className={styles.credit}>
+              Music: Kevin MacLeod (incompetech.com) — CC BY 4.0
+            </span>
+          </figcaption>
+        </figure>
       </div>
     </section>
   )

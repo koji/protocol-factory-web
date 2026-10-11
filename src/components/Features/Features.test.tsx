@@ -22,4 +22,18 @@ describe('Features', () => {
     const region = screen.getByLabelText('Features')
     expect(region).toHaveAttribute('id', 'features')
   })
+
+  it('shows the runtime parameters demo video', () => {
+    const { container } = render(<Features />)
+    const video = container.querySelector('video')
+    expect(video).not.toBeNull()
+    expect(video?.getAttribute('src')).toBe(
+      '/videos/protocol-factory-runtime-params.mp4',
+    )
+    expect(
+      screen.getByLabelText(
+        'Demo video of tweaking runtime parameters in Protocol Factory',
+      ),
+    ).toBeInTheDocument()
+  })
 })

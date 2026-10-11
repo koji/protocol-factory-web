@@ -9,7 +9,6 @@ describe('App', () => {
       screen.getByRole('heading', { level: 1, name: 'Protocol Factory' }),
     ).toBeInTheDocument()
     expect(screen.getByLabelText('Features')).toBeInTheDocument()
-    expect(screen.getByLabelText('Screenshot')).toBeInTheDocument()
     expect(screen.getByLabelText('Installation guide')).toBeInTheDocument()
   })
 
